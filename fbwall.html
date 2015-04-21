@@ -1,0 +1,42 @@
+<head>
+  <title>HookUp</title>
+</head>
+
+<body class="grid">
+    
+</body>
+
+<template name="layout">
+    <div class="ui inverted fixed main menu">
+        <a href="/" class="ui logo item"><div class="ui massive blue header">HookUp</div></a>
+        <div class="ui right aligned blue item">{{> loginButtons}}</div>
+    </div>
+    <div class="ui grid" style="padding-top: 100px;">
+        <div class="centered six column row">
+            <div class="six wide column">
+                {{>yield}}
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="home">
+        <form class="ui stackable form">
+            <input type="text" name="author" class="ui large input" placeholder="Your name"/>
+            <textarea class="" name="message" placeholder="What's in your mind?" cols="10" rows="2" ></textarea>
+            <input class="ui centered small green button" type="submit">
+        </form>
+        <input type="text" id="hi"/>
+        {{Value}}
+        <ol>
+            {{#each Messages}}
+                <li><b>{{author}}</b>:{{message}}</li>
+            {{/each}}
+        </ol>
+</template>
+
+
+<template name="notfound">
+        <div class="ui red large header">404 Not found.</div>
+</template>
