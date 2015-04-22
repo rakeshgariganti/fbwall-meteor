@@ -4,39 +4,87 @@
 
 <body class="grid">
     
+
 </body>
 
 <template name="layout">
     <div class="ui inverted fixed main menu">
-        <a href="/" class="ui logo item"><div class="ui massive blue header">HookUp</div></a>
-        <div class="ui right aligned blue item">{{> loginButtons}}</div>
+        <a href="/" class="ui title item"><div class="ui inverted massive header">HookUp</div></a>
+        {{#if currentUser}}
+            <button class="ui right aligned button item" id="logoutButton">Logout</button>
+        {{/if}}
     </div>
-    <div class="ui grid" style="padding-top: 100px;">
-        <div class="centered six column row">
-            <div class="six wide column">
+
+    <div class="ui flexible grid" style="padding-top:100px;">
+        <div class="row">
                 {{>yield}}
-            </div>
         </div>
     </div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
 </template>
 
 
 <template name="home">
-        <form class="ui stackable form">
-            <input type="text" name="author" class="ui large input" placeholder="Your name"/>
-            <textarea class="" name="message" placeholder="What's in your mind?" cols="10" rows="2" ></textarea>
-            <input class="ui centered small green button" type="submit">
-        </form>
-        <input type="text" id="hi"/>
-        {{Value}}
-        <ol>
-            {{#each Messages}}
-                <li><b>{{author}}</b>:{{message}}</li>
+    {{#if currentUser}}
+        <div class="eight wide centered column">
+            <div class="ui form">
+                <form id="postForm">
+                    <textarea id="postBody" style="height:10px; width:500 px;" placeholder="What's on your mind?"></textarea>
+                    <div class="ui hidden divider"></div>
+                    <button class="ui green button" id="postSubmitButton" type="submit">Post</button>
+                </form>
+            </div>
+            <div class="ui divider"></div>
+            {{#each Posts}}
+                <div class="ui raised segment">
+                    <div class="title"><h2>{{author.username}}</h2></div>
+                    <div class="description">{{content}}</div>
+                    <div class="ui hidden divider"></div>
+                    <div class="ui buttons">
+                        <button class="ui small button" id="likeButton">like <div class="ui green label">{{likes}}</div></button>
+                        <button class="ui small button" id="dislikeButton">dislike <div class="ui red label">{{dislikes}}</div></button>
+                    </div>
+                    <span class="text">{{createdAt}}</span>
+                </div>
             {{/each}}
-        </ol>
+        </div>
+    {{else}}
+        <div class="four wide centered green column">
+            <div class="ui form">
+                <form id="loginForm">
+                    <div class="ui large header">Login</div>
+                    <div class="ui input">
+                        <input type="text" placeholder="Username" id="loginUsername">
+                    </div>
+                    <div class="ui hidden divider"></div>
+                    <div class="ui input">
+                        <input type="password" placeholder="Password" id="loginPassword">
+                    </div>
+                    <div class="ui hidden divider"></div>
+                    <div class="ui buttons">
+                        <button class="ui red button" id="loginButton">Login</button>
+                        <div class="or"></div>
+                        <button class="ui red button" id="registerButton">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {{/if}}    
 </template>
 
 
 <template name="notfound">
-        <div class="ui red large header">404 Not found.</div>
+        <div class="ui red large header">
+            <h1>404 Not found</h1>
+            <h2>Are you lost? go to <a href="/">Home</a></h2>
+        </div>
+</template>
+
+<template name="loading">
+    <div class="ui red large header">
+            <h1>Loading...</h1>
+    </div>
 </template>
