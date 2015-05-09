@@ -1,5 +1,4 @@
 
-
 if (Meteor.isClient) {
   Meteor.subscribe('Posts');
   Template.home.events({
@@ -8,7 +7,7 @@ if (Meteor.isClient) {
       var username = template.find('#loginUsername').value;
       var password = template.find('#loginPassword').value;
       Meteor.loginWithPassword(username,password,function(error){
-        alert(error.reason);
+        template.find('#loginError').innerHTML = error.reason;
         console.log(error);
       });
     },
@@ -68,8 +67,10 @@ if (Meteor.isClient) {
             if(error){
               alert("Can't logout");
             }
+            else{
+              Router.go('/');
+            }
         });
-
     }
   });  
 }
@@ -78,7 +79,7 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     if(Meteor.userId){
       Meteor.publish('Posts',function() {
-        return Posts.find({},{sort:{createdAt:-1}});
+        return Posts.find({},{limit:10,sort:{createdAt:-1}});
       });
     }
   });

@@ -1,21 +1,21 @@
 <head>
   <title>HookUp</title>
+
 </head>
 
-<body class="grid">
-    
-
+<body>
 </body>
 
 <template name="layout">
     <div class="ui inverted fixed main menu">
         <a href="/" class="ui title item"><div class="ui inverted massive header">HookUp</div></a>
         {{#if currentUser}}
+            <a href="/about" class="ui right aligned button item" >About</a>
             <button class="ui right aligned button item" id="logoutButton">Logout</button>
         {{/if}}
     </div>
 
-    <div class="ui flexible grid" style="padding-top:100px;">
+    <div class="ui grid" style="padding-top:100px;">
         <div class="row">
                 {{>yield}}
         </div>
@@ -39,15 +39,15 @@
             </div>
             <div class="ui divider"></div>
             {{#each Posts}}
-                <div class="ui raised segment">
+                <div class="ui piled segment">
                     <div class="title"><h2>{{author.username}}</h2></div>
                     <div class="description">{{content}}</div>
                     <div class="ui hidden divider"></div>
                     <div class="ui buttons">
                         <button class="ui small button" id="likeButton">like <div class="ui green label">{{likes}}</div></button>
-                        <button class="ui small button" id="dislikeButton">dislike <div class="ui red label">{{dislikes}}</div></button>
+                        <button class="ui small lebel button" id="dislikeButton">dislike <div class="ui red label">{{dislikes}}</div></button>
                     </div>
-                    <span class="text">{{createdAt}}</span>
+                    <span style="opacity:0.8;text-color:grey;font-size:11px;">{{createdAt}}</span>
                 </div>
             {{/each}}
         </div>
@@ -70,6 +70,8 @@
                         <button class="ui red button" id="registerButton">Register</button>
                     </div>
                 </form>
+                <div class="ui hidden divider"></div>
+                <div class="ui red header" id="loginError"></div>
             </div>
         </div>
     {{/if}}    
@@ -77,10 +79,26 @@
 
 
 <template name="notfound">
-        <div class="ui red large header">
+    <div class="eight wide centered column">
+        <div class="ui red large header underlined">
             <h1>404 Not found</h1>
-            <h2>Are you lost? go to <a href="/">Home</a></h2>
+            <h2>Are you lost? go to <a href="/" class="ui green button">Home</a></h2>
         </div>
+    </div>
+</template>
+
+<template name="about">
+    <div class="eight wide centered column">
+    <div class="ui red large header">
+            <h1>About</h1>
+    </div>
+    <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </div>
 </template>
 
 <template name="loading">
